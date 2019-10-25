@@ -1,0 +1,110 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="XamarinSignalR.MainPage">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <BoxView BackgroundColor="Bisque"/>
+        <Label
+            Margin="10"
+            FontSize="20"
+            HorizontalOptions="FillAndExpand"
+            HorizontalTextAlignment="Start"
+            Text="My Chat"
+            TextColor="White"/>
+        <Label
+            Margin="10"
+            FontSize="20"
+            HorizontalOptions="End"
+            Text="Close"
+            TextColor="White">
+            <Label.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding DisconnectCommand}"/>
+            </Label.GestureRecognizers>
+        </Label>
+        <Label
+            Margin="10,10,80,10"
+            FontSize="20"
+            HorizontalOptions="End"
+            Text="Connect"
+            TextColor="White">
+            <Label.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding ConnectCommand}"/>
+            </Label.GestureRecognizers>
+        </Label>
+        
+        <ListView
+            Grid.Row="1"
+            FlowDirection="RightToLeft"
+            HasUnevenRows="True"
+            ItemsSource="{Binding Messages}"
+            SeparatorVisibility="None"
+            VerticalOptions="End">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Label
+                                Grid.Row="0"
+                                Margin="10,0"
+                                HorizontalOptions="End"
+                                HorizontalTextAlignment="End"
+                                Text="{Binding User}"/>
+                            <Grid
+                                Grid.Row="1"
+                                Margin="20,5"
+                                Padding="10"
+                                HorizontalOptions="End"
+                                VerticalOptions="FillAndExpand">
+                                <BoxView BackgroundColor="Bisque"
+                                     CornerRadius="10"
+                                     HorizontalOptions="FillAndExpand"/>
+                                <Label
+                                    Margin="10"
+                                    LineBreakMode="CharacterWrap"
+                                    Text="{Binding Message}"
+                                    VerticalOptions="FillAndExpand"/>
+                            </Grid>
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <Grid
+            Grid.Row="2"
+            ColumnSpacing="0"
+            RowSpacing="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="70"/>
+            </Grid.ColumnDefinitions>
+            <Entry 
+                BackgroundColor="#f5f9fa"
+                Placeholder="Message"
+                PlaceholderColor="#969daf"
+                Text="{Binding UserMessage}"
+                TextColor="Black"/>
+            <Button
+                Grid.Column="1"
+                BackgroundColor="Bisque"
+                Command="{Binding SendMessageCommand}"
+                HorizontalOptions="FillAndExpand"
+                Text="Send"
+                VerticalOptions="FillAndExpand"/>
+        </Grid>
+    </Grid>
+
+</ContentPage>
